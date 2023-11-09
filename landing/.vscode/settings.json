@@ -1,0 +1,8 @@
+{
+  "eslint.rules.customizations": [
+    {
+      "rule": "linebreak-style",
+      "severity": "off"
+    }
+  ]
+}
