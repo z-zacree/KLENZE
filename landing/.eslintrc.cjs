@@ -12,6 +12,7 @@ module.exports = {
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
+    "react/jsx-indent-props": [2, 4],
     'import/extensions': 'off',
   },
 };
