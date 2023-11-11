@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import { Button, Center, Flex, Stack, Text } from '@mantine/core';
+import { Button, Center, Container, Flex, Stack, Text } from '@mantine/core';
 
 import { CTAForm } from '../CTAForm/CTAForm';
 import heroClasses from './Hero.module.css';
 
 export const Hero: FC = () => (
-    <div className={heroClasses['hero-wrapper']}>
+    <Container size="2xl" className={heroClasses['hero-wrapper']}>
         <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 'lg', lg: 0 }}>
             <div className={heroClasses['section-group']}>
                 <Stack ml={{ lg: 'xl' }}>
@@ -29,9 +29,10 @@ export const Hero: FC = () => (
                     >
                         Reliable solutions for a Sparkling Home and more time for you
                     </Text>
-                    <Flex ml={{ lg: 32 }} align={{ lg: 'end' }}>
+                    <Flex ml={{ lg: 32 }}>
                         <Text
                             fw={600}
+                            lh={1}
                             fz={{ base: 'xl', lg: 56 }}
                             display={{ base: 'none', lg: 'block' }}
                         >
@@ -60,5 +61,5 @@ export const Hero: FC = () => (
                 </Center>
             </div>
         </Flex>
-    </div>
+    </Container>
 );

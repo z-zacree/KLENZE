@@ -1,20 +1,24 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button, Group, NumberInput, Radio, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { BasicPricingInfo } from '@models/Pricing';
 
 import heroClasses from '../Hero/Hero.module.css';
 
 export const CTAForm: FC = () => {
-    const form = useForm({
+    const router = useRouter();
+
+    const form = useForm<BasicPricingInfo>({
         initialValues: {
-            cleanType: 'house',
+            cleanType: 'CHANGE_OVER',
             bedroomCount: 1,
             bathroomCount: 1,
             storeyCount: 1,
-            propertyType: 'apartment',
+            propertyType: 'APARTMENT',
         },
 
         validate: {
@@ -29,9 +33,13 @@ export const CTAForm: FC = () => {
 
         const values = { ...form.values };
 
-        if (values.propertyType === 'apartment') values.storeyCount = 1;
+        if (values.propertyType === 'APARTMENT') values.storeyCount = 1;
 
-        console.log(values);
+        router.push(
+            `/pricing?${Object.entries(values)
+                .map(([key, value]) => `${key}=${value}`)
+                .join('&')}`
+        );
     };
 
     return (
@@ -45,9 +53,9 @@ export const CTAForm: FC = () => {
                 {...form.getInputProps('cleanType')}
             >
                 <Group mt="xs">
-                    <Radio color="teal" value="house" label="House Clean" />
-                    <Radio color="teal" value="lease" label="End of Lease" />
-                    <Radio color="teal" value="deep" label="Deep Clean" />
+                    <Radio color="teal" value="REGULAR_CLEAN" label="Regular" />
+                    <Radio color="teal" value="CHANGE_OVER" label="Change Over" />
+                    <Radio color="teal" value="DEEP_CLEAN" label="Deep" />
                 </Group>
             </Radio.Group>
             <Group grow>
@@ -72,12 +80,12 @@ export const CTAForm: FC = () => {
                 {...form.getInputProps('propertyType')}
             >
                 <Group mt="xs">
-                    <Radio color="teal" value="apartment" label="Apartment" />
-                    <Radio color="teal" value="house" label="House" />
-                    <Radio color="teal" value="others" label="Others" />
+                    <Radio color="teal" value="APARTMENT" label="Apartment" />
+                    <Radio color="teal" value="HOUSE" label="House" />
+                    <Radio color="teal" value="OTHERS" label="Others" />
                 </Group>
             </Radio.Group>
-            {form.values.propertyType !== 'apartment' ? (
+            {form.values.propertyType !== 'APARTMENT' ? (
                 <NumberInput
                     min={1}
                     defaultValue={1}
@@ -87,7 +95,7 @@ export const CTAForm: FC = () => {
                 />
             ) : undefined}
             <Button type="submit" color="teal">
-                Book now!
+                Check pricing
             </Button>
         </form>
     );

@@ -1,6 +1,5 @@
 .hero-wrapper {
-    padding-top: 7.5rem;
-    padding-inline: var(--mantine-spacing-md);
+    padding: 5rem var(--mantine-spacing-md);
 }
 
 .section-group {
@@ -32,8 +31,6 @@
 
 @media screen and (min-width: 75em) {
     .hero-wrapper {
-        margin-inline: auto;
-        max-width: calc(97 .5rem * var(--mantine-scale));
         padding-top: 10vw;
     }
 
