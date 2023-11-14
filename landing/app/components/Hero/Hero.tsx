@@ -9,7 +9,7 @@ export const Hero: FC = () => (
     <Container size="2xl" className={heroClasses['hero-wrapper']}>
         <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 'lg', lg: 0 }}>
             <div className={heroClasses['section-group']}>
-                <Stack ml={{ lg: 'xl' }}>
+                <Stack>
                     <Flex
                         w="min"
                         gap="md"

@@ -9,7 +9,7 @@ import { IconArrowNarrowRight, IconSquareRoundedCheck } from '@tabler/icons-reac
 import Link from 'next/link';
 
 export const Services: FC = () => (
-    <Container size="2xl">
+    <Container size="2xl" w="100%">
         <Badge variant="light" color="teal" size="lg">
             Services
         </Badge>
