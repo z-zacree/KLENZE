@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { ContactForm } from '../ContactForm/ContactForm';
 
 export const Contact: FC = () => (
-    <Container size="2xl" py="xl" w="100%">
+    <Container size="2xl" mt="xl" py="xl" w="100%">
         <Flex gap="lg" direction={{ base: 'column', lg: 'row' }}>
             <Stack style={{ flex: 1 }}>
                 <Text c="teal" fw={700}>
