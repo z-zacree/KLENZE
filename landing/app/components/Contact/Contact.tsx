@@ -27,8 +27,10 @@ export const Contact: FC = () => (
 
                 <Flex gap="lg" direction={{ base: 'column', sm: 'row' }}>
                     <Stack gap="xs" style={{ flex: 1 }}>
-                        <IconMail color="var(--mantine-color-teal-8)" />
-                        <Text fw="bolder">Email</Text>
+                        <Group gap="md" align="center">
+                            <IconMail color="var(--mantine-color-teal-8)" />
+                            <Text fw="bolder">Email</Text>
+                        </Group>
                         <Text c="dimmed">Our friendly team is here to help.</Text>
                         <Text
                             c="teal.6"
@@ -41,8 +43,10 @@ export const Contact: FC = () => (
                         </Text>
                     </Stack>
                     <Stack gap="xs" style={{ flex: 1 }}>
-                        <IconPhoneCall color="var(--mantine-color-teal-8)" />
-                        <Text fw="bolder">Phone</Text>
+                        <Group gap="md" align="center">
+                            <IconPhoneCall color="var(--mantine-color-teal-8)" />
+                            <Text fw="bolder">Phone</Text>
+                        </Group>
                         <Text c="dimmed">Mon-Fri from 8am to 6pm.</Text>
                         <Text
                             truncate

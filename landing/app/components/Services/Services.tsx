@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { Badge, Container, Flex, Stack, Text, Title } from '@mantine/core';
+import { Badge, Container, Flex, Group, Stack, Text, Title } from '@mantine/core';
 import { services } from '@models/Services';
 import { IconArrowNarrowRight, IconSquareRoundedCheck } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -32,16 +32,12 @@ export const Services: FC = () => (
                     direction={{ base: 'column', lg: i % 2 ? 'row-reverse' : 'row' }}
                 >
                     <Stack gap={0} style={{ flex: 1 }}>
-                        <Flex
-                            gap={{ base: 'xs', lg: 'md' }}
-                            direction={{ base: 'column', lg: 'row' }}
-                            align={{ lg: 'center' }}
-                        >
+                        <Group gap="md" align="center">
                             {icon}
                             <Text fw="bold" fz="xl">
                                 {title}
                             </Text>
-                        </Flex>
+                        </Group>
                         <Text c="dimmed">{subtitle}</Text>
                         {features && (
                             <Stack gap="lg" mx={{ base: 'sm', lg: 'xl' }} my="xl">

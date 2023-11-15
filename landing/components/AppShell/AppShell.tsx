@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { FC, PropsWithChildren } from 'react';
 
-import { AppShell, Burger, Button, Container, Group } from '@mantine/core';
+import { AppShell, Burger, Button, Container, Group, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Icon3dCubeSphere } from '@tabler/icons-react';
 
@@ -13,7 +13,7 @@ const NavigationItems: FC = () => (
         <Link href="/" className="nav-item-link">
             Home
         </Link>
-        <Button component={Link} href="#contact" mt={4} color="teal" variant="outline">
+        <Button component={Link} href="#contact" mt={{ sm: 4 }} color="teal" variant="outline">
             Contact us!
         </Button>
     </>
@@ -34,7 +34,7 @@ const KlenzeAppShell: NextPage<PropsWithChildren> = ({ children }) => {
                         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
                         <Group justify="space-between" style={{ flex: 1 }}>
                             <Icon3dCubeSphere size={30} />
-                            <Group align="center" visibleFrom="sm">
+                            <Group gap="md" align="center" visibleFrom="sm">
                                 <NavigationItems />
                             </Group>
                         </Group>
@@ -42,8 +42,10 @@ const KlenzeAppShell: NextPage<PropsWithChildren> = ({ children }) => {
                 </Container>
             </AppShell.Header>
 
-            <AppShell.Navbar p="md" px={4}>
-                <NavigationItems />
+            <AppShell.Navbar py="md" px="md">
+                <Stack gap="md">
+                    <NavigationItems />
+                </Stack>
             </AppShell.Navbar>
 
             <AppShell.Main>{children}</AppShell.Main>
