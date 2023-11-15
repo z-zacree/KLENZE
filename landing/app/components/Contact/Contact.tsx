@@ -1,13 +1,17 @@
-import { Container, Flex, Group, Stack, Text } from '@mantine/core';
-import { IconMail, IconPhoneCall } from '@tabler/icons-react';
 import Link from 'next/link';
 import { FC } from 'react';
+
+import { Container, Flex, Group, Stack, Text } from '@mantine/core';
+import { IconMail, IconPhoneCall } from '@tabler/icons-react';
+
 import { ContactForm } from '../ContactForm/ContactForm';
 
+import contactClasses from './Contact.module.css';
+
 export const Contact: FC = () => (
-    <Container size="2xl" mt="xl" py="xl" w="100%">
+    <Container size="2xl" py="xl" className={contactClasses['contact-wrapper']}>
         <Flex gap="lg" direction={{ base: 'column', lg: 'row' }}>
-            <Stack style={{ flex: 1 }}>
+            <Stack style={{ flex: 1 }} p={{ base: 'md', lg: 0 }}>
                 <Text c="teal" fw={700}>
                     Contact us
                 </Text>
@@ -21,7 +25,7 @@ export const Contact: FC = () => (
                     back to you.
                 </Text>
 
-                <Flex gap="lg" direction={{ base: 'column', lg: 'row' }}>
+                <Flex gap="lg" direction={{ base: 'column', sm: 'row' }}>
                     <Stack gap="xs" style={{ flex: 1 }}>
                         <IconMail color="var(--mantine-color-teal-8)" />
                         <Text fw="bolder">Email</Text>

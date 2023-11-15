@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, Group, TextInput, Textarea } from '@mantine/core';
+import { Button, Flex, TextInput, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { FC } from 'react';
 
-import heroClasses from '../Hero/Hero.module.css';
+import contactClasses from '../Contact/Contact.module.css';
 
 export const ContactForm: FC = () => {
     // const router = useRouter();
@@ -36,21 +36,23 @@ export const ContactForm: FC = () => {
     };
 
     return (
-        <form className={heroClasses.form} onSubmit={handleSubmit}>
-            <Group grow>
+        <form className={contactClasses.form} onSubmit={handleSubmit}>
+            <Flex gap="md" direction={{ base: 'column', sm: 'row' }}>
                 <TextInput
                     name="contact-name"
                     label="Name"
                     description="How should we address you"
+                    style={{ flex: 1 }}
                     {...form.getInputProps('name')}
                 />
                 <TextInput
                     name="contact-number"
                     label="Contact Number"
                     description="Your preferred contact number"
+                    style={{ flex: 1 }}
                     {...form.getInputProps('contactNumber')}
                 />
-            </Group>
+            </Flex>
             <TextInput
                 name="email"
                 label="Email"
@@ -68,7 +70,7 @@ export const ContactForm: FC = () => {
                 {...form.getInputProps('message')}
             />
             <Button type="submit" color="teal">
-                Check pricing
+                Send message
             </Button>
         </form>
     );

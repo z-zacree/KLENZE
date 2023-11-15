@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, SyntheticEvent } from 'react';
 
 import { Button, Group, NumberInput, Radio, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -22,24 +22,28 @@ export const CTAForm: FC = () => {
         },
 
         validate: {
-            bedroomCount: (val) => val < 0,
-            bathroomCount: (val) => val < 0,
-            storeyCount: (val) => val < 1,
+            bedroomCount: (val) => !val || val < 0,
+            bathroomCount: (val) => !val || val < 0,
+            storeyCount: (val) => !val || val < 1,
+            cleanType: (val) => !val || val.length < 0,
+            propertyType: (val) => !val || val.length < 0,
         },
     });
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
 
-        const values = { ...form.values };
+        form.onSubmit((formValues) => {
+            const values = { ...formValues };
 
-        if (values.propertyType === 'APARTMENT') values.storeyCount = 1;
+            if (values.propertyType === 'APARTMENT') values.storeyCount = 1;
 
-        router.push(
-            `/pricing?${Object.entries(values)
+            const href = `/pricing?${Object.entries(values)
                 .map(([key, value]) => `${key}=${value}`)
-                .join('&')}`
-        );
+                .join('&')}`;
+
+            router.push(href);
+        })();
     };
 
     return (
@@ -61,6 +65,7 @@ export const CTAForm: FC = () => {
             <Group grow>
                 <NumberInput
                     min={0}
+                    placeholder="Number of bedrooms"
                     defaultValue={1}
                     name="bedroom-count"
                     label="Bedrooms (s)"
@@ -69,6 +74,7 @@ export const CTAForm: FC = () => {
                 <NumberInput
                     min={0}
                     defaultValue={1}
+                    placeholder="Number of bathrooms"
                     name="bathroom-count"
                     label="Bathroom (s)"
                     {...form.getInputProps('bathroomCount')}

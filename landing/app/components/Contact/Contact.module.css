@@ -1,0 +1,31 @@
+.contact-wrapper {
+    margin: calc(-1rem * var(--mantine-scale));
+    padding: 5rem 0;
+}
+
+.form {
+    width: 100%;
+    gap: var(--mantine-spacing-md);
+    padding: var(--mantine-spacing-md);
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 75em) {
+    .contact-wrapper {
+        padding-top: 10vw;
+        width: 100%;
+        padding: 5rem var(--mantine-spacing-md);
+        margin: var(--mantine-spacing-xl) auto;
+    }
+
+    .form {
+        width: unset;
+        min-width: var(--mantine-breakpoint-xs);
+        border-radius: var(--mantine-radius-md);
+        background-color: var(--mantine-color-body);
+        box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 0 0 1.4375rem -0.4375rem,
+            rgba(0, 0, 0, 0.1) 0 0.75rem 0.75rem -0.4375rem;
+    }
+}
