@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { Container, Flex, Group, Stack, Text } from '@mantine/core';
+import { Container, Divider, Flex, Group, Stack, Text } from '@mantine/core';
 import { IconMail, IconPhoneCall } from '@tabler/icons-react';
 
 import { ContactForm } from '../ContactForm/ContactForm';
@@ -57,6 +57,7 @@ export const Contact: FC = () => (
                     </Stack>
                 </Flex>
             </Stack>
+            <Divider display={{ lg: 'none' }} mx="lg" label="Or fill up this form" />
             <Group align="center" justify="center" style={{ flex: 1 }}>
                 <ContactForm />
             </Group>

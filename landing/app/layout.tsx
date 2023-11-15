@@ -1,9 +1,16 @@
+import { Noto_Sans } from 'next/font/google';
+
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 
 import '@mantine/core/styles.css';
 
 import { theme } from '../theme';
 import './app.css';
+
+const notoSans = Noto_Sans({
+    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+    subsets: ['latin'],
+});
 
 export const metadata = {
     title: 'Klenze',
@@ -22,7 +29,7 @@ export default function RootLayout({ children }: { children: any }) {
                     content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
                 />
             </head>
-            <body>
+            <body className={notoSans.className}>
                 <MantineProvider theme={theme}>{children}</MantineProvider>
             </body>
         </html>
