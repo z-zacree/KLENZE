@@ -78,6 +78,8 @@ export const Services: FC = () => (
                                 alt="depiction"
                                 src={imagePath}
                                 style={{ objectFit: 'cover' }}
+                                sizes="(min-width: 1320px) 100vw, (min-width: 720px) 50vw, 25vw"
+                                priority
                             />
                         </div>
                     </div>
