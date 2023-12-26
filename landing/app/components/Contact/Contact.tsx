@@ -9,7 +9,7 @@ import { ContactForm } from '../ContactForm/ContactForm';
 import contactClasses from './Contact.module.css';
 
 export const Contact: FC = () => (
-    <Container size="2xl" py="xl" className={contactClasses['contact-wrapper']}>
+    <Container id="contact" size="2xl" py="xl" className={contactClasses['contact-wrapper']}>
         <Flex gap="lg" direction={{ base: 'column', lg: 'row' }}>
             <Stack style={{ flex: 1 }} p={{ base: 'md', lg: 0 }}>
                 <Text c="teal" fw={700}>
