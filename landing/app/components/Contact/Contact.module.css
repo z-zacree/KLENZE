@@ -1,6 +1,5 @@
 .contact-wrapper {
     margin: calc(-1rem * var(--mantine-scale));
-    padding: 5rem 0;
 }
 
 .form {
@@ -13,9 +12,8 @@
 
 @media screen and (min-width: 75em) {
     .contact-wrapper {
-        padding-top: 10vw;
         width: 100%;
-        padding: 5rem var(--mantine-spacing-md);
+        padding: 5rem var(--mantine-spacing-md) !important;
         margin: var(--mantine-spacing-xl) auto;
     }
 

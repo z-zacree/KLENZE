@@ -36,10 +36,19 @@ export const Contact: FC = () => (
                             c="teal.6"
                             fw={500}
                             component={Link}
-                            href="mailto:sales@klenze.com.au"
+                            href="mailto:hello@klenze.com.au"
                             style={{ width: 'min-content' }}
                         >
-                            sales@klenze.com.au
+                            hello@klenze.com.au
+                        </Text>
+                        <Text
+                            c="teal.6"
+                            fw={500}
+                            component={Link}
+                            href="mailto:support@klenze.com.au"
+                            style={{ width: 'min-content' }}
+                        >
+                            support@klenze.com.au
                         </Text>
                     </Stack>
                     <Stack gap="xs" style={{ flex: 1 }}>
