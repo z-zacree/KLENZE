@@ -1,0 +1,21 @@
+{
+  "name": "klenze",
+  "version": "1.0.0",
+  "description": "Monorepo for Klenze applications",
+  "scripts": {
+    "dev": "concurrently \"cd ./landing&&npm run dev\" \"cd ./backend&&php artisan serve\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z-zacree/KLENZE.git"
+  },
+  "author": "Zachary Lim",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/z-zacree/KLENZE/issues"
+  },
+  "homepage": "https://github.com/z-zacree/KLENZE#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

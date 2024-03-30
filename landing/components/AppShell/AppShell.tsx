@@ -13,7 +13,7 @@ const NavigationItems: FC = () => (
         <Link href="/" className="nav-item-link">
             Home
         </Link>
-        <Button component={Link} href="#contact" mt={{ sm: 4 }} color="teal" variant="outline">
+        <Button component={Link} href="/#contact" mt={{ sm: 4 }} color="teal" variant="outline">
             Contact us!
         </Button>
     </>
