@@ -1,8 +1,15 @@
 {
-  "eslint.rules.customizations": [
-    {
-      "rule": "linebreak-style",
-      "severity": "off"
-    }
-  ]
+    "eslint.rules.customizations": [
+        {
+            "rule": "linebreak-style",
+            "severity": "off"
+        }
+    ],
+    "cssVariables.lookupFiles": [
+        "**/*.css",
+        "**/*.scss",
+        "**/*.sass",
+        "**/*.less",
+        "node_modules/@mantine/core/styles.css"
+    ]
 }

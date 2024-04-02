@@ -1,0 +1,49 @@
+.stepper-wrapper {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1 px solid var(--mantine-color-gray-3);
+    background-color: var(--mantine-color-gray-0);
+}
+
+.steps {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: start;
+}
+
+.stepIcon {
+    background-color: white;
+    border: 2px solid var(--mantine-color-gray-3);
+}
+
+.stepIcon[data-completed] {
+    background-color: var(--step-color);
+    border-color: var(--step-color);
+}
+
+.stepIcon[data-progress] {
+    border-color: var(--step-color);
+}
+
+.separator {
+    display: none;
+}
+
+.centered-number-input {
+    text-align: center;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+}
+
+@media screen and (min-width: 48em) {
+    .steps {
+        gap: 0;
+        row-gap: 1rem;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .separator {
+        display: block;
+    }
+}
