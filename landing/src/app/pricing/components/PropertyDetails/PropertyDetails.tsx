@@ -21,6 +21,26 @@ import { IconMinus, IconPlus } from '@tabler/icons-react';
 
 import pricingPageClasses from '../../page.module.css';
 
+type SelectFieldDetails = {
+    type: 'select';
+    title: string;
+    subtitle: string;
+    fieldName: string;
+    value: string;
+    options: ComboboxItem[];
+};
+
+type CountFieldDetails = {
+    type: 'count';
+    title: string;
+    subtitle: string;
+    fieldName: string;
+    min: number;
+    value: string;
+};
+
+type FieldGroups = (SelectFieldDetails | CountFieldDetails)[][];
+
 export const PropertyDetails: FC = () => {
     const router = useRouter();
     const pathname = usePathname();
@@ -39,7 +59,7 @@ export const PropertyDetails: FC = () => {
         [propertyTypeReadableMap]
     );
 
-    const fieldGroups = useMemo(
+    const fieldGroups: FieldGroups = useMemo(
         () => [
             [
                 {
@@ -47,6 +67,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Type of Property',
                     subtitle: `Does not affect the cost, but it helps our cleaners prepare for their job more efficiently.`,
                     fieldName: 'propertyType',
+                    value: propertyType as string,
                     options: propertyTypeSelectItems,
                 },
                 {
@@ -54,6 +75,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of storeys',
                     subtitle: `Does not affect the cost, but it helps us select the appropriate cleaners fit for the job.`,
                     fieldName: 'storeyCount',
+                    min: 1,
                     value: storeyCount,
                 },
                 {
@@ -61,6 +83,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of living rooms',
                     subtitle: `The number of main living areas in the property.`,
                     fieldName: 'livingRoomCount',
+                    min: 0,
                     value: livingRoomCount,
                 },
                 {
@@ -68,6 +91,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of kitchens',
                     subtitle: `The number of kitchen areas available for cleaning.`,
                     fieldName: 'kitchenCount',
+                    min: 0,
                     value: kitchenCount,
                 },
             ],
@@ -77,6 +101,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of bedrooms',
                     subtitle: 'Note: Offices/Studies count as Bedrooms.',
                     fieldName: 'bedroomCount',
+                    min: 0,
                     value: bedroomCount,
                 },
                 {
@@ -84,6 +109,7 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of bathrooms',
                     subtitle: 'Bathroom consists of Shower, Toilet Bowl and Sink.',
                     fieldName: 'bathroomCount',
+                    min: 0,
                     value: bathroomCount,
                 },
                 {
@@ -91,11 +117,20 @@ export const PropertyDetails: FC = () => {
                     title: 'Number of powder rooms',
                     subtitle: 'Powder rooms consists of Toilet Bowl and/or Sink only. (No Shower)',
                     fieldName: 'powderroomCount',
+                    min: 0,
                     value: powderRoomCount,
                 },
             ],
         ],
-        [storeyCount, bedroomCount, bathroomCount, powderRoomCount, livingRoomCount, kitchenCount]
+        [
+            propertyType,
+            storeyCount,
+            bedroomCount,
+            bathroomCount,
+            powderRoomCount,
+            livingRoomCount,
+            kitchenCount,
+        ]
     );
 
     const COUNT_GROUP_PROPS = useMemo(
@@ -158,7 +193,7 @@ export const PropertyDetails: FC = () => {
                                         onClick={() =>
                                             updateParam(
                                                 details.fieldName,
-                                                Number(details.value) <= 0
+                                                Number(details.value) <= details.min
                                                     ? Number(details.value)
                                                     : Number(details.value) - 1
                                             )
@@ -194,7 +229,7 @@ export const PropertyDetails: FC = () => {
                                 <Select
                                     color="teal"
                                     placeholder="Pick type of property"
-                                    defaultValue={propertyType}
+                                    defaultValue={details.value}
                                     data={details.options}
                                     onChange={(val) => updateParam(details.fieldName, val)}
                                 />
