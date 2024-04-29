@@ -2,58 +2,33 @@
 
 import type { NextPage } from 'next';
 
-import { useSearchParams } from 'next/navigation';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import KlenzeAppShell from '@/components/AppShell/AppShell';
-import { Badge, Button, Container, Flex, Group, Stack, Stepper, Text, Title } from '@mantine/core';
+import { Badge, Container, Flex, Stack, Stepper, Text, Title } from '@mantine/core';
 
-import { AdHocTasks, ExtraSupplies, PriceSummary, PropertyDetails } from './components';
+import { AdHocTasks, CostBreakdown, HouseSupplies, PropertyDetails } from './components';
 import pricingPageClasses from './page.module.css';
 
-const PricingPage: NextPage = (props) => {
+const PricingPage: NextPage = () => {
     const [step, setStep] = useState(0);
-    const searchParams = useSearchParams();
-
-    const nextStep = useCallback(
-        () => setStep((current) => (current < 4 ? current + 1 : current)),
-        [setStep]
-    );
-    const prevStep = useCallback(
-        () => setStep((current) => (current > 0 ? current - 1 : current)),
-        [setStep]
-    );
 
     const StepContent: FC = useCallback(() => {
         switch (step) {
             case 0:
-                return <PropertyDetails />;
+                return <PropertyDetails onFinishStep={() => setStep(1)} />;
             case 1:
-                return <ExtraSupplies />;
+                return (
+                    <HouseSupplies onPrevStep={() => setStep(0)} onFinishStep={() => setStep(2)} />
+                );
             case 2:
-                return <AdHocTasks />;
+                return <AdHocTasks onPrevStep={() => setStep(1)} onFinishStep={() => setStep(3)} />;
             case 3:
-                return <PriceSummary />;
+                return <CostBreakdown />;
             default:
-                return <PriceSummary />;
+                return <CostBreakdown />;
         }
     }, [step]);
-
-    useEffect(() => {
-        // const bedroomCount = Number(searchParams.get('bedroomCount'));
-        // const bathroomCount = Number(searchParams.get('bathroomCount'));
-        // const storeyCount = Number(searchParams.get('storeyCount'));
-        // const cleanType = searchParams.get('cleanType') as CleanType;
-        // const propertyType = searchParams.get('propertyType') as PropertyType;
-        // if (
-        //     isNaN(bedroomCount) ||
-        //     isNaN(bathroomCount) ||
-        //     isNaN(storeyCount) ||
-        //     !(cleanTypes.includes(cleanType) && propertyTypes.includes(propertyType))
-        // ) {
-        //     setStep(0);
-        // } else setStep(1);
-    }, [searchParams]);
 
     return (
         <KlenzeAppShell>
@@ -70,8 +45,7 @@ const PricingPage: NextPage = (props) => {
                     Discover and Streamline your costs with our intuitive pricing calculator
                 </Text>
 
-                <Flex mt="lg" gap="md" direction={{ base: 'column', lg: 'row-reverse' }}>
-                    <PriceSummary />
+                <Flex mt="lg" gap="md" direction={{ base: 'column', lg: 'row' }}>
                     <Stack flex={3}>
                         <div className={pricingPageClasses['stepper-wrapper']}>
                             <Stepper
@@ -81,7 +55,7 @@ const PricingPage: NextPage = (props) => {
                                 classNames={pricingPageClasses}
                             >
                                 <Stepper.Step label="Property Details" />
-                                <Stepper.Step label="Extra supplies" />
+                                <Stepper.Step label="House supplies" />
                                 <Stepper.Step label="Ad Hoc Tasks" />
                                 <Stepper.Step label="Date & Time" />
                             </Stepper>
@@ -89,14 +63,8 @@ const PricingPage: NextPage = (props) => {
 
                         <StepContent />
                     </Stack>
+                    <CostBreakdown />
                 </Flex>
-
-                <Group justify="center" mt="xl">
-                    <Button variant="default" onClick={prevStep}>
-                        Back
-                    </Button>
-                    <Button onClick={nextStep}>Next step</Button>
-                </Group>
             </Container>
         </KlenzeAppShell>
     );

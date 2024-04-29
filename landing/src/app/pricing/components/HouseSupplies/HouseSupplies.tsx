@@ -1,13 +1,9 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-
-import { PricingFieldDetails, PropertyType, propertyTypeReadableMap } from '@/models/Pricing';
+import { PricingFieldDetails } from '@/models/Pricing';
 import {
     ActionIcon,
     Button,
-    ComboboxItem,
     Flex,
     Group,
     GroupProps,
@@ -19,14 +15,17 @@ import {
     rem,
 } from '@mantine/core';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 import pricingPageClasses from '../../page.module.css';
 
 interface ComponentProps {
+    onPrevStep: Function;
     onFinishStep: Function;
 }
 
-export const PropertyDetails: FC<ComponentProps> = ({ onFinishStep }) => {
+export const HouseSupplies: FC<ComponentProps> = ({ onPrevStep, onFinishStep }) => {
     const [innerStep, setInnerStep] = useState(0);
 
     const router = useRouter();
@@ -34,108 +33,114 @@ export const PropertyDetails: FC<ComponentProps> = ({ onFinishStep }) => {
     const searchParams = useSearchParams();
 
     // Step 1
-    const propertyType = searchParams.get('propertyType') as PropertyType | null;
-    const storeyCount = searchParams.get('storeyCount');
-    const outdoorCount = searchParams.get('outdoorCount');
+    const linenDoubleCount = searchParams.get('linenDoubleCount');
+    const linenSingleCount = searchParams.get('linenSingleCount');
 
     // Step 2
-    const bedroomCount = searchParams.get('bedroomCount');
-    const bathroomCount = searchParams.get('bathroomCount');
-    const powderRoomCount = searchParams.get('powderroomCount');
+    const completeBathroomSet = searchParams.get('completeBathroomSet');
+    const showerPack = searchParams.get('showerPack');
+    const bathroomPack = searchParams.get('bathroomPack');
+    const towelPack = searchParams.get('towelPack');
 
     // Step 3
-    const livingRoomCount = searchParams.get('livingRoomCount');
-    const kitchenCount = searchParams.get('kitchenCount');
-
-    const propertyTypeSelectItems: ComboboxItem[] = useMemo(
-        () => Object.entries(propertyTypeReadableMap).map(([value, label]) => ({ label, value })),
-        [propertyTypeReadableMap]
-    );
+    const completeKitchenSet = searchParams.get('completeKitchenSet');
+    const kitchenPack = searchParams.get('kitchenPack');
+    const beveragesPack = searchParams.get('beveragesPack');
 
     const fieldGroups: PricingFieldDetails = useMemo(
         () => [
             {
                 step: 0,
-                type: 'select',
-                title: 'Type of Property',
-                subtitle: `Does not affect the cost, but it helps our cleaners prepare for their job more efficiently.`,
-                fieldName: 'propertyType',
-                value: propertyType as string,
-                options: propertyTypeSelectItems,
+                type: 'count',
+                title: 'Linen - Queen/King',
+                subtitle: `3x sheets Queen linen, 4x Pillowcases, 2x Bath Towels`,
+                fieldName: 'linenDoubleCount',
+                min: 0,
+                value: linenDoubleCount ?? '0',
             },
             {
                 step: 0,
                 type: 'count',
-                title: 'Number of storeys',
-                subtitle: `Does not affect the cost, but it helps us select the appropriate cleaners fit for the job.`,
-                fieldName: 'storeyCount',
-                min: 1,
-                value: storeyCount ?? '1',
-            },
-            {
-                step: 0,
-                type: 'count',
-                title: 'Number of balcony/outdoor areas',
-                subtitle: `Any external outdoor extension area`,
-                fieldName: 'outdoorCount',
+                title: 'Linen - Single',
+                subtitle: `3x sheets Single linen, 2x Pillowcases, 1x Bath Towel`,
+                fieldName: 'linenSingleCount',
                 min: 0,
-                value: outdoorCount ?? '0',
+                value: linenSingleCount ?? '0',
             },
             {
                 step: 1,
                 type: 'count',
-                title: 'Number of bedrooms',
-                subtitle: 'Offices/Studies count as Bedrooms.',
-                fieldName: 'bedroomCount',
-                min: 1,
-                value: bedroomCount ?? '1',
-            },
-            {
-                step: 1,
-                type: 'count',
-                title: 'Number of bathrooms',
-                subtitle: 'Consists of a Shower, Toilet Bowl and/or Sink.',
-                fieldName: 'bathroomCount',
-                min: 1,
-                value: bathroomCount ?? '1',
-            },
-            {
-                step: 1,
-                type: 'count',
-                title: 'Number of powder rooms',
-                subtitle: 'Consists of Toilet Bowl and/or Sink only. (No Shower)',
-                fieldName: 'powderroomCount',
+                title: 'Complete Bathroom Set',
+                subtitle: `Shower pack + Bathroom pack`,
+                fieldName: 'completeBathroomSet',
                 min: 0,
-                value: powderRoomCount ?? '0',
+                value: completeBathroomSet ?? '0',
+            },
+            {
+                step: 1,
+                type: 'count',
+                title: 'Shower pack',
+                subtitle: `1x bath mat, 1x Hand towel`,
+                fieldName: 'showerPack',
+                min: 0,
+                value: showerPack ?? '0',
+            },
+            {
+                step: 1,
+                type: 'count',
+                title: 'Bathroom pack',
+                subtitle: `1x Shampoo, 1x Conditioner, 1x Body Wash, 3x Toilet Paper rolls`,
+                fieldName: 'bathroomPack',
+                min: 0,
+                value: bathroomPack ?? '0',
+            },
+            {
+                step: 1,
+                type: 'count',
+                title: 'Towel pack',
+                subtitle: `2x Bath Towel`,
+                fieldName: 'towelPack',
+                min: 0,
+                value: towelPack ?? '0',
             },
             {
                 step: 2,
                 type: 'count',
-                title: 'Number of living rooms',
-                subtitle: `Cleaning costs cover a single living area. Additional fee for multiples.`,
-                fieldName: 'livingRoomCount',
+                title: 'Complete Kitchen set',
+                subtitle: `Kitchen pack + Beverages pack`,
+                fieldName: 'completeKitchenSet',
                 min: 0,
-                value: livingRoomCount ?? '1',
+                value: completeKitchenSet ?? '0',
             },
             {
                 step: 2,
                 type: 'count',
-                title: 'Number of kitchens',
-                subtitle: `Cleaning costs cover a single kitchen area. Additional fee for multiples.`,
-                fieldName: 'kitchenCount',
+                title: 'Kitchen pack',
+                subtitle: `1x Sponge, 1x Wipe, 1x Laundry Powder, 1x Dishwashing Liquid, 3x Bin Liners`,
+                fieldName: 'kitchenPack',
                 min: 0,
-                value: kitchenCount ?? '1',
+                value: kitchenPack ?? '0',
+            },
+            {
+                step: 2,
+                type: 'count',
+                title: 'Beverages pack',
+                subtitle: `1x Milk, 2x Tea, 2x Coffee, 2x Sugar`,
+                fieldName: 'beveragesPack',
+                min: 0,
+                value: beveragesPack ?? '0',
             },
         ],
         [
-            propertyType,
-            storeyCount,
-            outdoorCount,
-            bedroomCount,
-            bathroomCount,
-            powderRoomCount,
-            livingRoomCount,
-            kitchenCount,
+            linenDoubleCount,
+            linenSingleCount,
+            completeBathroomSet,
+            showerPack,
+            bathroomPack,
+            towelPack,
+            completeKitchenSet,
+            kitchenPack,
+            beveragesPack,
         ]
     );
 
@@ -181,72 +186,11 @@ export const PropertyDetails: FC<ComponentProps> = ({ onFinishStep }) => {
         } else onFinishStep();
     }, [innerStep, setInnerStep]);
 
-    const prevStep = useCallback(
-        () => setInnerStep((current) => (current > 0 ? current - 1 : current)),
-        [setInnerStep]
-    );
-
-    const concatenatedSearchParams = useMemo(
-        () => Array.from(searchParams.entries()).map(([key, value]) => `${key}=${value}`),
-        [searchParams]
-    );
-
-    useEffect(() => {
-        switch (innerStep) {
-            case 0:
-                if (!storeyCount) {
-                    const nextSearchParams = [...concatenatedSearchParams];
-
-                    nextSearchParams.push('storeyCount=1');
-
-                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
-
-                    router.replace(nextUrl);
-                }
-                break;
-            case 1:
-                if (!bedroomCount) {
-                    const nextSearchParams = [...concatenatedSearchParams];
-
-                    nextSearchParams.push('bedroomCount=1');
-
-                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
-
-                    router.replace(nextUrl);
-                } else if (!bathroomCount) {
-                    const nextSearchParams = [...concatenatedSearchParams];
-
-                    nextSearchParams.push('bathroomCount=1');
-
-                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
-
-                    router.replace(nextUrl);
-                }
-                break;
-            case 2:
-                if (!livingRoomCount) {
-                    const nextSearchParams = [...concatenatedSearchParams];
-
-                    nextSearchParams.push('livingRoomCount=1');
-
-                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
-
-                    router.replace(nextUrl);
-                } else if (!kitchenCount) {
-                    const nextSearchParams = [...concatenatedSearchParams];
-
-                    nextSearchParams.push('kitchenCount=1');
-
-                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
-
-                    router.replace(nextUrl);
-                }
-                break;
-
-            default:
-                break;
-        }
-    }, [concatenatedSearchParams, innerStep]);
+    const prevStep = useCallback(() => {
+        if (innerStep == 0) {
+            onPrevStep();
+        } else setInnerStep((current) => current - 1);
+    }, [innerStep, setInnerStep]);
 
     return (
         <Stack flex={1}>

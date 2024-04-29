@@ -1,3 +1,5 @@
+import { ComboboxItem } from '@mantine/core';
+
 export const cleanTypes = ['REGULAR_CLEAN', 'CHANGE_OVER', 'DEEP_CLEAN'] as const;
 export const propertyTypes = ['APARTMENT', 'HOUSE', 'OTHERS'] as const;
 
@@ -28,3 +30,25 @@ export const propertyTypeReadableMap: Record<PropertyType, string> = {
     HOUSE: 'House',
     OTHERS: 'Others',
 };
+
+type SelectFieldDetails = {
+    step: number;
+    type: 'select';
+    title: string;
+    subtitle: string;
+    fieldName: string;
+    value: string;
+    options: ComboboxItem[];
+};
+
+type CountFieldDetails = {
+    step: number;
+    type: 'count';
+    title: string;
+    subtitle: string;
+    fieldName: string;
+    min: number;
+    value: string;
+};
+
+export type PricingFieldDetails = (SelectFieldDetails | CountFieldDetails)[];
