@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Monorepo for Klenze applications",
   "scripts": {
-    "dev": "concurrently \"cd ./landing&&npm run dev\" \"cd ./backend&&php artisan serve\""
+    "dev:local": "concurrently \"cd ./landing&&npm run dev\" \"cd ./backend&&php artisan serve\""
   },
   "repository": {
     "type": "git",
