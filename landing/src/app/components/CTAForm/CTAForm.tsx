@@ -14,19 +14,17 @@ export const CTAForm: FC = () => {
 
     const form = useForm<BasicPricingInfo>({
         initialValues: {
-            cleanType: 'CHANGE_OVER',
+            propertyType: 'APARTMENT',
+            storeyCount: 1,
             bedroomCount: 1,
             bathroomCount: 1,
-            storeyCount: 1,
-            propertyType: 'APARTMENT',
         },
 
         validate: {
+            propertyType: (val) => !val || val.length < 0,
+            storeyCount: (val) => !val || val < 1,
             bedroomCount: (val) => !val || val < 0,
             bathroomCount: (val) => !val || val < 0,
-            storeyCount: (val) => !val || val < 1,
-            cleanType: (val) => !val || val.length < 0,
-            propertyType: (val) => !val || val.length < 0,
         },
     });
 
@@ -51,17 +49,6 @@ export const CTAForm: FC = () => {
             <Text fw="bold" fz="xl">
                 Say Goodbye to any mess!
             </Text>
-            <Radio.Group
-                name="clean-type"
-                label="What type of cleaning do you need?"
-                {...form.getInputProps('cleanType')}
-            >
-                <Group mt="xs">
-                    <Radio color="teal" value="REGULAR_CLEAN" label="Regular" />
-                    <Radio color="teal" value="CHANGE_OVER" label="Change Over" />
-                    <Radio color="teal" value="DEEP_CLEAN" label="Deep" />
-                </Group>
-            </Radio.Group>
             <Group grow>
                 <NumberInput
                     min={0}

@@ -1,32 +1,10 @@
-.stepper-wrapper {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: 1 px solid var(--mantine-color-gray-3);
-    background-color: var(--mantine-color-gray-0);
-}
-
-.steps {
-    gap: 1rem;
+.step-container {
+    gap: 2rem;
+    height: calc(100dvh - 5rem - 2rem - 5rem);
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    display: flex;
     flex-direction: column;
-    align-items: start;
-}
-
-.stepIcon {
-    background-color: white;
-    border: 2px solid var(--mantine-color-gray-3);
-}
-
-.stepIcon[data-completed] {
-    background-color: var(--step-color);
-    border-color: var(--step-color);
-}
-
-.stepIcon[data-progress] {
-    border-color: var(--step-color);
-}
-
-.separator {
-    display: none;
 }
 
 .centered-number-input {
@@ -35,15 +13,17 @@
     padding-inline-end: 0;
 }
 
-@media screen and (min-width: 48em) {
-    .steps {
-        gap: 0;
-        row-gap: 1rem;
-        flex-direction: row;
-        align-items: center;
-    }
+.cost-breakdown-btn {
+    display: none;
 
-    .separator {
+    left: 100%;
+    margin-left: 1rem;
+    position: absolute;
+
+}
+
+@media screen and (min-width: 1024px) {
+    .cost-breakdown-btn {
         display: block;
     }
 }

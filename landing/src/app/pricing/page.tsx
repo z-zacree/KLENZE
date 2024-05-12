@@ -2,70 +2,108 @@
 
 import type { NextPage } from 'next';
 
-import { FC, useCallback, useState } from 'react';
-
 import KlenzeAppShell from '@/components/AppShell/AppShell';
-import { Badge, Container, Flex, Stack, Stepper, Text, Title } from '@mantine/core';
+import { useEffect, useMemo, useState } from 'react';
 
-import { AdHocTasks, CostBreakdown, HouseSupplies, PropertyDetails } from './components';
-import pricingPageClasses from './page.module.css';
+import { useDisclosure } from '@mantine/hooks';
+import { nprogress } from '@mantine/nprogress';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { CostBreakdown } from './components/CostBreakdown/CostBreakdown';
+import { PricingSteps } from './components/Steps/PricingSteps';
+import { PricingContextProvider } from './context/PricingContext';
+
+const MAX_STEP = 5;
 
 const PricingPage: NextPage = () => {
-    const [step, setStep] = useState(0);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
-    const StepContent: FC = useCallback(() => {
+    const storeyCount = searchParams.get('storeyCount');
+    const bedroomCount = searchParams.get('bedroomCount');
+    const bathroomCount = searchParams.get('bathroomCount');
+    const livingRoomCount = searchParams.get('livingRoomCount');
+    const kitchenCount = searchParams.get('kitchenCount');
+
+    const [step, setStep] = useState(0);
+    const [modalOpened, { open, close }] = useDisclosure(false);
+
+    const concatenatedSearchParams = useMemo(
+        () => Array.from(searchParams.entries()).map(([key, value]) => `${key}=${value}`),
+        [searchParams]
+    );
+
+    useEffect(() => {
         switch (step) {
             case 0:
-                return <PropertyDetails onFinishStep={() => setStep(1)} />;
+                if (!storeyCount) {
+                    const nextSearchParams = [...concatenatedSearchParams];
+
+                    nextSearchParams.push('storeyCount=1');
+
+                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
+
+                    router.replace(nextUrl);
+                }
+                break;
             case 1:
-                return (
-                    <HouseSupplies onPrevStep={() => setStep(0)} onFinishStep={() => setStep(2)} />
-                );
+                if (!bedroomCount) {
+                    const nextSearchParams = [...concatenatedSearchParams];
+
+                    nextSearchParams.push('bedroomCount=1');
+
+                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
+
+                    router.replace(nextUrl);
+                } else if (!bathroomCount) {
+                    const nextSearchParams = [...concatenatedSearchParams];
+
+                    nextSearchParams.push('bathroomCount=1');
+
+                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
+
+                    router.replace(nextUrl);
+                }
+                break;
             case 2:
-                return <AdHocTasks onPrevStep={() => setStep(1)} onFinishStep={() => setStep(3)} />;
-            case 3:
-                return <CostBreakdown />;
+                if (!livingRoomCount) {
+                    const nextSearchParams = [...concatenatedSearchParams];
+
+                    nextSearchParams.push('livingRoomCount=1');
+
+                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
+
+                    router.replace(nextUrl);
+                } else if (!kitchenCount) {
+                    const nextSearchParams = [...concatenatedSearchParams];
+
+                    nextSearchParams.push('kitchenCount=1');
+
+                    const nextUrl = `${pathname}?${nextSearchParams.join('&')}`;
+
+                    router.replace(nextUrl);
+                }
+                break;
+
             default:
-                return <CostBreakdown />;
+                break;
         }
+    }, [concatenatedSearchParams, step]);
+
+    useEffect(() => {
+        nprogress.set((step / MAX_STEP) * 100);
     }, [step]);
 
     return (
         <KlenzeAppShell>
-            <Container size="2xl">
-                <Badge variant="light" color="teal" size="lg" mt="xl">
-                    Pricing
-                </Badge>
-
-                <Title maw={560} order={1} mt="sm" fz={{ base: 28, xs: 36, sm: 42 }}>
-                    Simple, transparent pricing
-                </Title>
-
-                <Text maw={560} c="dimmed" mt="sm" fz={{ base: 'sm', xs: 'md', sm: 'lg' }}>
-                    Discover and Streamline your costs with our intuitive pricing calculator
-                </Text>
-
-                <Flex mt="lg" gap="md" direction={{ base: 'column', lg: 'row' }}>
-                    <Stack flex={3}>
-                        <div className={pricingPageClasses['stepper-wrapper']}>
-                            <Stepper
-                                active={step}
-                                onStepClick={setStep}
-                                color="teal"
-                                classNames={pricingPageClasses}
-                            >
-                                <Stepper.Step label="Property Details" />
-                                <Stepper.Step label="House supplies" />
-                                <Stepper.Step label="Ad Hoc Tasks" />
-                                <Stepper.Step label="Date & Time" />
-                            </Stepper>
-                        </div>
-
-                        <StepContent />
-                    </Stack>
-                    <CostBreakdown />
-                </Flex>
-            </Container>
+            <PricingContextProvider>
+                {step < MAX_STEP ? (
+                    <PricingSteps open={open} step={step} setStep={setStep} />
+                ) : (
+                    <>completed</>
+                )}
+                <CostBreakdown opened={modalOpened} close={close} />
+            </PricingContextProvider>
         </KlenzeAppShell>
     );
 };

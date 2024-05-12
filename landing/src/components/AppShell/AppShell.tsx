@@ -46,7 +46,7 @@ const KlenzeAppShell: NextPage<PropsWithChildren> = ({ children }) => {
             </AppShell.Header>
 
             <AppShell.Navbar py="md" px="md">
-                <Stack gap="md">
+                <Stack gap="md" display={!opened ? 'none' : 'flex'}>
                     <NavigationItems />
                 </Stack>
             </AppShell.Navbar>

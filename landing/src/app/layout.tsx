@@ -1,14 +1,16 @@
-import './globals.css';
 import '@mantine/core/styles.css';
+import '@mantine/nprogress/styles.css';
 
-import { Noto_Sans } from 'next/font/google';
+import './globals.css';
+
+import { Inter } from 'next/font/google';
 import { FC, PropsWithChildren } from 'react';
 
 import { ColorSchemeScript } from '@mantine/core';
 
 import { CustomMantineProvider } from './components';
 
-const notoSans = Noto_Sans({
+const notoSans = Inter({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
     subsets: ['latin'],
 });
