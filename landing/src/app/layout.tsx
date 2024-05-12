@@ -1,6 +1,5 @@
 import '@mantine/core/styles.css';
 import '@mantine/nprogress/styles.css';
-
 import './globals.css';
 
 import { Inter } from 'next/font/google';

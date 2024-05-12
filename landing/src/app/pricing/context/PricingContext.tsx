@@ -1,8 +1,9 @@
 'use client';
 
-import { TotalCostBreakdown } from '@/models/Pricing';
 import { useSearchParams } from 'next/navigation';
-import { FC, PropsWithChildren, createContext, useMemo } from 'react';
+import { createContext, FC, PropsWithChildren, useMemo } from 'react';
+
+import { TotalCostBreakdown } from '@/models/Pricing';
 
 const defaultValue = {
     total: 0,
@@ -169,7 +170,7 @@ export const PricingContextProvider: FC<PropsWithChildren> = ({ children }) => {
         costBreakdown.forEach(({ key, ppu, value }) => {
             next += ppu * value;
 
-            if (key == 'bedroomCount' && value > 1) {
+            if (key === 'bedroomCount' && value > 1) {
                 next -= 40;
             }
         });

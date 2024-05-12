@@ -1,7 +1,9 @@
 'use client';
 
-import { Box, CloseButton, Divider, Grid, Group, Modal, Text } from '@mantine/core';
 import { FC, useContext, useMemo } from 'react';
+
+import { Box, CloseButton, Divider, Grid, Group, Modal, Text } from '@mantine/core';
+
 import { PricingContext } from '../../context/PricingContext';
 
 type ComponentProps = {

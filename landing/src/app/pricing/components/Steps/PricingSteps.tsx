@@ -1,32 +1,18 @@
 'use client';
 
-import {
-    CountFieldDetails,
-    PropertyType,
-    SelectFieldDetails,
-    propertyTypeReadableMap,
-} from '@/models/Pricing';
-import {
-    ActionIcon,
-    Button,
-    ComboboxItem,
-    Container,
-    Divider,
-    Group,
-    GroupProps,
-    NumberInput,
-    ScrollArea,
-    Select,
-    SimpleGrid,
-    Stack,
-    Text,
-    rem,
-} from '@mantine/core';
-import { IconArrowRight, IconCheck, IconMinus, IconPlus } from '@tabler/icons-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Dispatch, FC, SetStateAction, useCallback, useContext, useMemo } from 'react';
 
+import {
+    CountFieldDetails, PropertyType, propertyTypeReadableMap, SelectFieldDetails
+} from '@/models/Pricing';
+import {
+    ActionIcon, Button, ComboboxItem, Container, Divider, Group, GroupProps, NumberInput, rem,
+    ScrollArea, Select, SimpleGrid, Stack, Text
+} from '@mantine/core';
 import { nprogress } from '@mantine/nprogress';
+import { IconArrowRight, IconCheck, IconMinus, IconPlus } from '@tabler/icons-react';
+
 import { PricingContext } from '../../context/PricingContext';
 import pricingPageClasses from '../../page.module.css';
 
