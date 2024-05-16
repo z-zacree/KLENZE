@@ -1,0 +1,44 @@
+version: '3.9'
+
+networks:
+  klenze-backend-nw:
+    driver: bridge
+
+services:
+  app:
+    container_name: backend-app
+    working_dir: /var/www
+    build:
+      args:
+        user: adam
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - klenze-backend-nw
+    volumes:
+      - ./:/var/www
+
+  db:
+    container_name: postgresql_db
+    image: postgres
+    networks:
+      - klenze-backend-nw
+    ports:
+      - 5432:5432 
+    environment:
+      POSTGRES_DB: klenze
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pass
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    networks:
+      - klenze-backend-nw
+    ports:
+      - 80:80
+      - 8000:80
+    volumes:
+        - ./:/var/www
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
