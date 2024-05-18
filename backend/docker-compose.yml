@@ -1,5 +1,3 @@
-version: '3.9'
-
 networks:
   klenze-backend-nw:
     driver: bridge
