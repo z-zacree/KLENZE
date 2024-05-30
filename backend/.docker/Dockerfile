@@ -27,10 +27,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 
 # Enable OPCache
-RUN docker-php-ext-configure opcache --enable-opcache
+# RUN docker-php-ext-configure opcache --enable-opcache
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd opcache
+RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd #opcache
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
