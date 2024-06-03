@@ -1,26 +1,28 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { Button, Flex, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import contactClasses from '../Contact/Contact.module.css';
+import axios, { AxiosError } from 'axios';
+import { notifications } from '@mantine/notifications';
 
 export const ContactForm: FC = () => {
-    // const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const form = useForm({
         initialValues: {
             name: '',
-            contactNumber: '',
+            phone_number: '',
             email: '',
             message: '',
         },
 
         validate: {
             name: (val) => val.length < 1,
-            contactNumber: (val) => val.length < 1,
+            phone_number: (val) => val.length < 1,
             email: (val) => val.length < 1,
             message: (val) => val.length < 1,
         },
@@ -29,10 +31,26 @@ export const ContactForm: FC = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
-        form.onSubmit((formValues) => {
-            const values = { ...formValues };
+        form.onSubmit(async (formValues) => {
+            setLoading(true);
 
-            console.log(values);
+            try {
+                await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/contact`, formValues);
+
+                notifications.show({
+                    color: 'teal',
+                    title: 'Message sent!',
+                    message: "We'll get back to you as soon as possible.",
+                });
+            } catch (e) {
+                notifications.show({
+                    color: 'red',
+                    title: "Message wasn't delivered.",
+                    message: "Oops! Let's try that again after a moment.",
+                });
+            }
+
+            setLoading(false);
         })();
     };
 
@@ -51,7 +69,7 @@ export const ContactForm: FC = () => {
                     label="Contact Number"
                     description="Your preferred contact number"
                     style={{ flex: 1 }}
-                    {...form.getInputProps('contactNumber')}
+                    {...form.getInputProps('phone_number')}
                 />
             </Flex>
             <TextInput
@@ -70,7 +88,7 @@ export const ContactForm: FC = () => {
                 maxRows={5}
                 {...form.getInputProps('message')}
             />
-            <Button type="submit" color="teal">
+            <Button type="submit" color="teal" loading={loading}>
                 Send message
             </Button>
         </form>

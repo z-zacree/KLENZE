@@ -1,4 +1,5 @@
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import '@mantine/nprogress/styles.css';
 import './globals.css';
 
@@ -9,7 +10,7 @@ import { ColorSchemeScript } from '@mantine/core';
 
 import { CustomMantineProvider } from './components';
 
-const notoSans = Inter({
+const inter = Inter({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
     subsets: ['latin'],
 });
@@ -31,7 +32,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
                     content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
                 />
             </head>
-            <body className={notoSans.className}>
+            <body className={inter.className}>
                 <CustomMantineProvider>{children}</CustomMantineProvider>
             </body>
         </html>

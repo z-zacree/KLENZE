@@ -4,6 +4,7 @@ import { FC, PropsWithChildren } from 'react';
 
 import { Container, createTheme, MantineProvider, rem } from '@mantine/core';
 import { NavigationProgress } from '@mantine/nprogress';
+import { Notifications } from '@mantine/notifications';
 
 const CONTAINER_SIZES: Record<string, string> = {
     '2xs': rem(360),
@@ -35,6 +36,7 @@ const theme = createTheme({
 export const CustomMantineProvider: FC<PropsWithChildren> = ({ children }) => {
     return (
         <MantineProvider theme={theme}>
+            <Notifications />
             <NavigationProgress color="teal" />
             {children}
         </MantineProvider>
