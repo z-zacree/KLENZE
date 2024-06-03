@@ -3,8 +3,8 @@
 import { FC, PropsWithChildren } from 'react';
 
 import { Container, createTheme, MantineProvider, rem } from '@mantine/core';
-import { NavigationProgress } from '@mantine/nprogress';
 import { Notifications } from '@mantine/notifications';
+import { NavigationProgress } from '@mantine/nprogress';
 
 const CONTAINER_SIZES: Record<string, string> = {
     '2xs': rem(360),

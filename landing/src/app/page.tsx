@@ -5,9 +5,7 @@ import type { NextPage } from 'next';
 import KlenzeAppShell from '@/components/AppShell/AppShell';
 import { Stack } from '@mantine/core';
 
-import { Hero } from './components';
-import { Contact } from './components/Contact/Contact';
-import { Services } from './components/Services/Services';
+import { Contact, Hero, Services } from './components';
 
 const HomePage: NextPage = () => (
     <KlenzeAppShell>

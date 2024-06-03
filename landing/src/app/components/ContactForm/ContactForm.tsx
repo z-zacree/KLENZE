@@ -1,13 +1,13 @@
 'use client';
 
+import axios from 'axios';
 import { FC, useState } from 'react';
 
 import { Button, Flex, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 
 import contactClasses from '../Contact/Contact.module.css';
-import axios, { AxiosError } from 'axios';
-import { notifications } from '@mantine/notifications';
 
 export const ContactForm: FC = () => {
     const [loading, setLoading] = useState(false);
