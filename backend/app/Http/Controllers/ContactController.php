@@ -35,10 +35,13 @@ class ContactController extends Controller
         $contactMessage = ContactMessage::create($data);
 
         dispatch(function () use ($contactMessage) {
-            Mail::to('zacharylim2004@gmail.com')->queue(new ContactUsMail($contactMessage));
-        })->afterResponse();
+            $recipients = explode(",", env("CONTACT_FORM_RECEPIENTS"));
 
-        Mail::to('zacharylim2004@gmail.com')->send(new ContactUsMail($contactMessage));
+            foreach ($recipients as $recipient) {
+                Mail::to($recipient)->queue(new ContactUsMail($contactMessage));
+            }
+
+        })->afterResponse();
 
         return response()->json([
             "success" => true,
