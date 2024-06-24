@@ -4,16 +4,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table#main {
+            width: 100%;
+        }
+
+        table#content {
+            margin: 5rem auto;
+            width: 600px;
+            color: #000;
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+        }
+    </style>
 </head>
 
 <body>
-    <table id="main" align="center" border="0" cellpadding="0" cellspacing="0"
-        style="width: 100%; background-color: #edf2f7;">
+    <table id="main" align="center" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
                 <td>
-                    <table id="content" align="center" border="0" cellpadding="0" cellspacing="0"
-                        style="border-radius: 12px; border: 1px solid #e4e4e7; color: #000; background-color: #fff; width: 600px; margin: 5rem auto">
+                    <table id="content" align="center" border="0" cellpadding="0" cellspacing="0">
                         <tbody>
                             <tr>
                                 <td
