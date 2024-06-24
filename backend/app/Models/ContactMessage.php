@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class ContactMessage extends Model
 {
@@ -20,4 +21,10 @@ class ContactMessage extends Model
         'email',
         'message'
     ];
+
+    public function setPhoneNumberAttribute($value)
+    {
+        $this->attributes["phone_number"] = new PhoneNumber($value, "AU");
+    }
+
 }
